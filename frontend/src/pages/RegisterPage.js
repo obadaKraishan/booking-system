@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { AiOutlineUser, AiOutlineMail, AiOutlineLock, AiOutlineEye, AiOutlineEyeInvisible } from 'react-icons/ai';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';  // Import useNavigate
 import { toast } from 'react-toastify';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
@@ -9,6 +9,7 @@ import * as Yup from 'yup';
 const RegisterPage = () => {
   const [showPassword, setShowPassword] = useState(false);  // Toggle for password visibility
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);  // Toggle for confirm password visibility
+  const navigate = useNavigate();  // Initialize useNavigate
 
   const formik = useFormik({
     initialValues: {
@@ -29,6 +30,7 @@ const RegisterPage = () => {
       try {
         const { data } = await axios.post('http://localhost:5001/api/users/register', values);
         toast.success(`User ${data.name} registered successfully!`);
+        navigate('/');  // Redirect to HomePage after successful registration
       } catch (error) {
         toast.error('Registration failed. Please try again.');
       }
