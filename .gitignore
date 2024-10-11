@@ -4,7 +4,7 @@
 
 # dependencies
 /.pnp
-/frontend/node_modules/
+frontend/node_modules/
 
 # testing
 /coverage
@@ -30,3 +30,4 @@ yarn-error.log*
 *.ntvs*
 *.njsproj
 *.sln
+frontend/node_modules/.cache/.eslintcache

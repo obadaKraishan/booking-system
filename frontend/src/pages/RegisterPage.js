@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { AiOutlineUser, AiOutlineMail, AiOutlineLock } from 'react-icons/ai';
+import { Link } from 'react-router-dom';
 
 const RegisterPage = () => {
   const [name, setName] = useState('');
@@ -73,6 +74,12 @@ const RegisterPage = () => {
           </button>
         </form>
         {message && <p className="mt-4 text-red-500 text-center">{message}</p>}
+
+        <div className="mt-6 text-center">
+          <p className="text-gray-600">
+            Already have an account? <Link to="/login" className="text-blue-500">Login</Link>
+          </p>
+        </div>
       </div>
     </div>
   );
