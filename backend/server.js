@@ -3,6 +3,7 @@ const cors = require('cors');
 const dotenv = require('dotenv');
 const connectDB = require('./config/db');
 const userRoutes = require('./routes/userRoutes');
+const doctorRoutes = require('./routes/doctorRoutes');
 
 // Load environment variables
 dotenv.config();
@@ -19,6 +20,7 @@ app.use(express.json());
 
 // Routes
 app.use('/api/users', userRoutes);
+app.use('/api/doctors', doctorRoutes);
 
 // Start the server
 const PORT = process.env.PORT || 5001;
