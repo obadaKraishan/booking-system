@@ -18,7 +18,7 @@ const LoginPage = () => {
     }),
     onSubmit: async (values) => {
       try {
-        const { data } = await axios.post('/api/users/login', values);
+        const { data } = await axios.post('http://localhost:5001/api/users/login', values);  // Updated to point to backend
         toast.success(`Welcome back, ${data.name}!`);
       } catch (error) {
         toast.error('Login failed. Please check your credentials.');
