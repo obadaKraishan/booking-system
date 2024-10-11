@@ -10,7 +10,7 @@ const getDoctors = async (req, res) => {
   }
 };
 
-// Add a new doctor
+// Add a new doctor with detailed availability
 const addDoctor = async (req, res) => {
   const { name, email, specialty, phone, availability, description } = req.body;
 
@@ -25,7 +25,7 @@ const addDoctor = async (req, res) => {
       email,
       specialty,
       phone,
-      availability,
+      availability, // Expected format: [{ day: 'Monday', startTime: '2024-10-10T09:00:00Z', endTime: '2024-10-10T17:00:00Z' }]
       description,
     });
 
