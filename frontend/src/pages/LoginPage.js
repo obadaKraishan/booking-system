@@ -1,12 +1,14 @@
 import React from 'react';
 import axios from 'axios';
 import { AiOutlineMail, AiOutlineLock } from 'react-icons/ai';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';  // Import useNavigate
 import { toast } from 'react-toastify';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 
 const LoginPage = () => {
+  const navigate = useNavigate();  // Initialize useNavigate
+
   const formik = useFormik({
     initialValues: {
       email: '',
@@ -20,6 +22,7 @@ const LoginPage = () => {
       try {
         const { data } = await axios.post('http://localhost:5001/api/users/login', values);  // Updated to point to backend
         toast.success(`Welcome back, ${data.name}!`);
+        navigate('/');  // Redirect to HomePage after successful login
       } catch (error) {
         toast.error('Login failed. Please check your credentials.');
       }
