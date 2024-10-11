@@ -2,20 +2,27 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { AiOutlineUser, AiOutlineMail, AiOutlineLock } from 'react-icons/ai';
 import { Link } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 const RegisterPage = () => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [message, setMessage] = useState('');
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    // Basic validation
+    if (!name || !email || !password) {
+      toast.error('Please fill in all fields.');
+      return;
+    }
+
     try {
       const { data } = await axios.post('/api/users/register', { name, email, password });
-      setMessage(`User ${data.name} registered successfully`);
+      toast.success(`User ${data.name} registered successfully!`);
     } catch (error) {
-      setMessage('Registration failed');
+      toast.error('Registration failed. Please try again.');
     }
   };
 
@@ -33,7 +40,6 @@ const RegisterPage = () => {
                 className="w-full py-1 px-2 outline-none"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
-                required
                 placeholder="Your Name"
               />
             </div>
@@ -47,7 +53,6 @@ const RegisterPage = () => {
                 className="w-full py-1 px-2 outline-none"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                required
                 placeholder="Your Email"
               />
             </div>
@@ -61,7 +66,6 @@ const RegisterPage = () => {
                 className="w-full py-1 px-2 outline-none"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                required
                 placeholder="Your Password"
               />
             </div>
@@ -73,7 +77,6 @@ const RegisterPage = () => {
             Register
           </button>
         </form>
-        {message && <p className="mt-4 text-red-500 text-center">{message}</p>}
 
         <div className="mt-6 text-center">
           <p className="text-gray-600">
