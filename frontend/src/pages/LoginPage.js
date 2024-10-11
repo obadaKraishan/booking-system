@@ -2,19 +2,26 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { AiOutlineMail, AiOutlineLock } from 'react-icons/ai';
 import { Link } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 const LoginPage = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [message, setMessage] = useState('');
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    // Basic validation
+    if (!email || !password) {
+      toast.error('Please fill in all fields.');
+      return;
+    }
+
     try {
       const { data } = await axios.post('/api/users/login', { email, password });
-      setMessage(`Welcome back, ${data.name}`);
+      toast.success(`Welcome back, ${data.name}!`);
     } catch (error) {
-      setMessage('Login failed');
+      toast.error('Login failed. Please check your credentials.');
     }
   };
 
@@ -32,7 +39,6 @@ const LoginPage = () => {
                 className="w-full py-1 px-2 outline-none"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                required
                 placeholder="Your Email"
               />
             </div>
@@ -46,7 +52,6 @@ const LoginPage = () => {
                 className="w-full py-1 px-2 outline-none"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                required
                 placeholder="Your Password"
               />
             </div>
@@ -58,7 +63,6 @@ const LoginPage = () => {
             Login
           </button>
         </form>
-        {message && <p className="mt-4 text-red-500 text-center">{message}</p>}
 
         <div className="mt-6 text-center">
           <p className="text-gray-600">
