@@ -20,7 +20,7 @@ const RegisterPage = () => {
     }),
     onSubmit: async (values) => {
       try {
-        const { data } = await axios.post('/api/users/register', values);
+        const { data } = await axios.post('http://localhost:5001/api/users/register', values);  // Updated to point to backend
         toast.success(`User ${data.name} registered successfully!`);
       } catch (error) {
         toast.error('Registration failed. Please try again.');
