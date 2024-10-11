@@ -2,7 +2,6 @@ const express = require('express');
 const cors = require('cors');
 const dotenv = require('dotenv');
 const connectDB = require('./config/db');
-const appointmentRoutes = require('./routes/appointmentRoutes');
 
 // Load environment variables
 dotenv.config();
@@ -18,7 +17,6 @@ app.use(cors());
 app.use(express.json());
 
 // Routes
-app.use('/api/appointments', appointmentRoutes);
 
 // Start the server
 const PORT = process.env.PORT || 5001;
