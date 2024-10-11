@@ -1,5 +1,20 @@
 const mongoose = require('mongoose');
 
+const availabilitySchema = new mongoose.Schema({
+  day: {
+    type: String, // Example: 'Monday'
+    required: true,
+  },
+  startTime: {
+    type: Date, // Example: 2024-10-10T09:00:00Z (9 AM)
+    required: true,
+  },
+  endTime: {
+    type: Date, // Example: 2024-10-10T17:00:00Z (5 PM)
+    required: true,
+  }
+}, { _id: false });
+
 const doctorSchema = new mongoose.Schema({
   name: {
     type: String,
@@ -19,7 +34,7 @@ const doctorSchema = new mongoose.Schema({
     required: true,
   },
   availability: {
-    type: [String],  // E.g., ['Monday 9AM-5PM', 'Wednesday 1PM-4PM']
+    type: [availabilitySchema],  // Availability stored with precise start and end times
     required: true,
   },
   description: {
