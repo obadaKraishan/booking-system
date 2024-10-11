@@ -1,26 +1,33 @@
-import React from 'react';
+import React, { useState } from 'react';
 import axios from 'axios';
-import { AiOutlineUser, AiOutlineMail, AiOutlineLock } from 'react-icons/ai';
+import { AiOutlineUser, AiOutlineMail, AiOutlineLock, AiOutlineEye, AiOutlineEyeInvisible } from 'react-icons/ai';
 import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 
 const RegisterPage = () => {
+  const [showPassword, setShowPassword] = useState(false);  // Toggle for password visibility
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);  // Toggle for confirm password visibility
+
   const formik = useFormik({
     initialValues: {
       name: '',
       email: '',
       password: '',
+      confirmPassword: '',
     },
     validationSchema: Yup.object({
       name: Yup.string().min(3, 'Name must be at least 3 characters').required('Name is required'),
       email: Yup.string().email('Invalid email address').required('Email is required'),
       password: Yup.string().min(6, 'Password must be at least 6 characters').required('Password is required'),
+      confirmPassword: Yup.string()
+        .oneOf([Yup.ref('password'), null], 'Passwords must match')
+        .required('Confirm password is required'),
     }),
     onSubmit: async (values) => {
       try {
-        const { data } = await axios.post('http://localhost:5001/api/users/register', values);  // Updated to point to backend
+        const { data } = await axios.post('http://localhost:5001/api/users/register', values);
         toast.success(`User ${data.name} registered successfully!`);
       } catch (error) {
         toast.error('Registration failed. Please try again.');
@@ -48,6 +55,7 @@ const RegisterPage = () => {
               <p className="text-red-500 text-sm">{formik.errors.name}</p>
             ) : null}
           </div>
+
           <div className="mb-4">
             <label className="block text-gray-700 text-sm font-bold mb-2">Email</label>
             <div className="flex items-center border rounded px-3 py-2 shadow-sm">
@@ -63,21 +71,51 @@ const RegisterPage = () => {
               <p className="text-red-500 text-sm">{formik.errors.email}</p>
             ) : null}
           </div>
-          <div className="mb-6">
+
+          <div className="mb-4">
             <label className="block text-gray-700 text-sm font-bold mb-2">Password</label>
-            <div className="flex items-center border rounded px-3 py-2 shadow-sm">
+            <div className="flex items-center border rounded px-3 py-2 shadow-sm relative">
               <AiOutlineLock className="text-gray-400 mr-2" />
               <input
-                type="password"
+                type={showPassword ? 'text' : 'password'}
                 className="w-full py-1 px-2 outline-none"
                 {...formik.getFieldProps('password')}
                 placeholder="Your Password"
               />
+              <div
+                className="absolute right-3 cursor-pointer"
+                onClick={() => setShowPassword(!showPassword)}
+              >
+                {showPassword ? <AiOutlineEyeInvisible /> : <AiOutlineEye />}
+              </div>
             </div>
             {formik.touched.password && formik.errors.password ? (
               <p className="text-red-500 text-sm">{formik.errors.password}</p>
             ) : null}
           </div>
+
+          <div className="mb-6">
+            <label className="block text-gray-700 text-sm font-bold mb-2">Confirm Password</label>
+            <div className="flex items-center border rounded px-3 py-2 shadow-sm relative">
+              <AiOutlineLock className="text-gray-400 mr-2" />
+              <input
+                type={showConfirmPassword ? 'text' : 'password'}
+                className="w-full py-1 px-2 outline-none"
+                {...formik.getFieldProps('confirmPassword')}
+                placeholder="Confirm Your Password"
+              />
+              <div
+                className="absolute right-3 cursor-pointer"
+                onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+              >
+                {showConfirmPassword ? <AiOutlineEyeInvisible /> : <AiOutlineEye />}
+              </div>
+            </div>
+            {formik.touched.confirmPassword && formik.errors.confirmPassword ? (
+              <p className="text-red-500 text-sm">{formik.errors.confirmPassword}</p>
+            ) : null}
+          </div>
+
           <button
             type="submit"
             className="w-full bg-gradient-to-r from-blue-500 to-purple-500 hover:from-purple-500 hover:to-blue-500 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
