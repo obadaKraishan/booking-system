@@ -4,10 +4,13 @@ const dotenv = require('dotenv');
 const connectDB = require('./config/db');
 const appointmentRoutes = require('./routes/appointmentRoutes');
 
+// Load environment variables
 dotenv.config();
+
+// Initialize Express app
 const app = express();
 
-// Connect to DB
+// Connect to MongoDB
 connectDB();
 
 // Middleware
@@ -17,5 +20,17 @@ app.use(express.json());
 // Routes
 app.use('/api/appointments', appointmentRoutes);
 
+// Start the server
 const PORT = process.env.PORT || 5001;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+
+// Error handling for uncaught exceptions
+process.on('uncaughtException', (err) => {
+  console.error('Uncaught Exception:', err);
+  process.exit(1);
+});
+
+process.on('unhandledRejection', (err) => {
+  console.error('Unhandled Rejection:', err);
+  process.exit(1);
+});
