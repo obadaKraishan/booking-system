@@ -4,7 +4,18 @@ const doctors = [
       email: 'john@example.com',
       specialty: 'Cardiology',
       phone: '555-123-4567',
-      availability: ['Monday 9AM-5PM', 'Wednesday 1PM-4PM'],
+      availability: [
+        {
+          day: 'Monday',
+          startTime: new Date('2024-10-14T09:00:00Z'),
+          endTime: new Date('2024-10-14T17:00:00Z'),
+        },
+        {
+          day: 'Wednesday',
+          startTime: new Date('2024-10-16T13:00:00Z'),
+          endTime: new Date('2024-10-16T16:00:00Z'),
+        },
+      ],
       description: 'Experienced cardiologist with over 10 years in practice.',
     },
     {
@@ -12,7 +23,18 @@ const doctors = [
       email: 'jane@example.com',
       specialty: 'Dermatology',
       phone: '555-987-6543',
-      availability: ['Tuesday 10AM-6PM', 'Thursday 2PM-5PM'],
+      availability: [
+        {
+          day: 'Tuesday',
+          startTime: new Date('2024-10-15T10:00:00Z'),
+          endTime: new Date('2024-10-15T18:00:00Z'),
+        },
+        {
+          day: 'Thursday',
+          startTime: new Date('2024-10-17T14:00:00Z'),
+          endTime: new Date('2024-10-17T17:00:00Z'),
+        },
+      ],
       description: 'Specializes in skin conditions and cosmetic treatments.',
     },
   ];
