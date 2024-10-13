@@ -23,7 +23,11 @@ const DoctorList = () => {
   return (
     <div className="container mx-auto">
       {doctors.length > 0 ? (
-        doctors.map((doctor) => <DoctorCard key={doctor._id} doctor={doctor} />)
+        <div className="flex flex-wrap justify-between gap-4">
+          {doctors.map((doctor) => (
+            <DoctorCard key={doctor._id} doctor={doctor} />
+          ))}
+        </div>
       ) : (
         <p className="text-gray-700">No doctors available.</p>
       )}
