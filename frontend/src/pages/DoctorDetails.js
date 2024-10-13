@@ -29,7 +29,7 @@ const DoctorDetails = () => {
   }
 
   return (
-    <div className="flex flex-col min-h-screen">
+    <div className="flex flex-col min-h-screen bg-gray-100">
       <Header />
       <div className="container mx-auto p-6">
         {/* Breadcrumb */}
