@@ -10,6 +10,7 @@ const DoctorList = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [specialtyFilter, setSpecialtyFilter] = useState('All');
   const [filteredDoctors, setFilteredDoctors] = useState([]);
+  const [visibleDoctors, setVisibleDoctors] = useState(8); // Number of doctors to show initially
 
   useEffect(() => {
     const fetchDoctors = async () => {
@@ -41,6 +42,11 @@ const DoctorList = () => {
 
   const handleSpecialtyChange = (e) => {
     setSpecialtyFilter(e.target.value);
+  };
+
+  // Load more doctors
+  const loadMoreDoctors = () => {
+    setVisibleDoctors((prevVisibleDoctors) => prevVisibleDoctors + 8); // Increase the number of visible doctors by 8
   };
 
   // Get unique specialties from the doctors list for filtering
@@ -77,11 +83,25 @@ const DoctorList = () => {
 
       {/* Doctor List */}
       {filteredDoctors.length > 0 ? (
-        <div className="flex flex-wrap justify-between gap-4">
-          {filteredDoctors.map((doctor) => (
-            <DoctorCard key={doctor._id} doctor={doctor} />
-          ))}
-        </div>
+        <>
+          <div className="flex flex-wrap justify-between gap-4">
+            {filteredDoctors.slice(0, visibleDoctors).map((doctor) => (
+              <DoctorCard key={doctor._id} doctor={doctor} />
+            ))}
+          </div>
+
+          {/* Load More Button */}
+          {visibleDoctors < filteredDoctors.length && (
+            <div className="text-center mt-4">
+              <button
+                onClick={loadMoreDoctors}
+                className="bg-blue-500 text-white font-bold py-2 px-4 rounded hover:bg-blue-600"
+              >
+                Load More
+              </button>
+            </div>
+          )}
+        </>
       ) : (
         <p className="text-gray-700">No doctors available.</p>
       )}
