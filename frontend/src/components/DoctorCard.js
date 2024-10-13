@@ -2,6 +2,7 @@
 
 import React from 'react';
 import { FaStethoscope, FaEnvelope, FaPhone, FaUserMd } from 'react-icons/fa';
+import { Link } from 'react-router-dom';
 
 const DoctorCard = ({ doctor }) => {
   return (
@@ -27,6 +28,15 @@ const DoctorCard = ({ doctor }) => {
           <FaPhone className="text-red-500 mr-2" /> {doctor.phone}
         </p>
         <p className="text-gray-600">{doctor.description}</p>
+
+        <div className="mt-4">
+          <Link
+            to={`/doctor/${doctor._id}`}
+            className="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600"
+          >
+            View Details
+          </Link>
+        </div>
       </div>
     </div>
   );
