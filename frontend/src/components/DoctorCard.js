@@ -8,7 +8,7 @@ const DoctorCard = ({ doctor }) => {
     <div className="bg-white shadow-md rounded-lg p-6 mb-4 flex flex-col md:flex-row items-center md:w-[48%]">
       <div className="flex-shrink-0 mb-4 md:mb-0 md:mr-6">
         <img
-          src="https://via.placeholder.com/100" // Placeholder avatar
+          src={`${process.env.PUBLIC_URL}/images/avatar.png`}
           alt={`${doctor.name}'s avatar`}
           className="w-24 h-24 rounded-full object-cover"
         />
