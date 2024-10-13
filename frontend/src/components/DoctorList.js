@@ -3,6 +3,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import DoctorCard from './DoctorCard';
+import { FaSearch } from 'react-icons/fa'; // Magnifying glass icon
 
 const DoctorList = () => {
   const [doctors, setDoctors] = useState([]);
@@ -47,21 +48,24 @@ const DoctorList = () => {
 
   return (
     <div className="container mx-auto p-4">
-      <div className="flex flex-col md:flex-row justify-between items-center mb-4">
-        {/* Search bar */}
-        <input
-          type="text"
-          placeholder="Search by doctor's name"
-          value={searchTerm}
-          onChange={handleSearchChange}
-          className="mb-2 md:mb-0 md:mr-4 px-4 py-2 border rounded"
-        />
+      <div className="flex flex-col md:flex-row justify-between items-center mb-4 gap-4">
+        {/* Search bar with magnifying glass icon */}
+        <div className="flex items-center w-full md:w-7/10 bg-white border rounded px-4 py-2">
+          <FaSearch className="text-gray-500 mr-2" />
+          <input
+            type="text"
+            placeholder="Search by doctor's name"
+            value={searchTerm}
+            onChange={handleSearchChange}
+            className="flex-grow outline-none"
+          />
+        </div>
 
         {/* Specialty filter */}
         <select
           value={specialtyFilter}
           onChange={handleSpecialtyChange}
-          className="px-4 py-2 border rounded"
+          className="w-full md:w-3/10 px-4 py-2 border rounded bg-white"
         >
           {specialties.map((specialty) => (
             <option key={specialty} value={specialty}>

@@ -7,7 +7,7 @@ import DoctorList from '../components/DoctorList';
 
 const HomePage = () => {
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className="min-h-screen flex flex-col bg-gray-100">
       <Header />
       <main className="flex-grow container mx-auto py-8">
         <h2 className="text-3xl font-bold text-center mb-8">Our Doctors</h2>
