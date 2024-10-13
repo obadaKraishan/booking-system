@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
-const doctors = require('./data/doctors');  // Sample doctor data
+const doctors = require('./utils/doctors');  // Sample doctor data
 const Doctor = require('./models/Doctor');
 const connectDB = require('./config/db');
 
